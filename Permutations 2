@@ -1,0 +1,29 @@
+https://leetcode.com/problems/permutations-ii/
+
+
+class Solution {
+public:
+    vector<vector<int>> ans;
+    set<vector<int>> s;
+    void backtrack(int i,vector<int>& nums,int n)
+    {
+        if(i>=n)
+        {
+            s.insert(nums);
+            return;
+        }
+
+        for(int x=i;x<n;x++)
+        {
+            swap(nums[x],nums[i]);
+            backtrack(i+1,nums,n);
+            swap(nums[x],nums[i]);
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        int n = nums.size();
+        backtrack(0,nums,n);
+        for(auto& x: s) ans.push_back(x);
+        return ans;
+    }
+};
