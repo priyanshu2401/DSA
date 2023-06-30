@@ -1,0 +1,27 @@
+https://leetcode.com/problems/subsets/
+
+
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void backtrack(int i,vector<int>& nums,int n,vector<int>& temp)
+    {
+        if(i>=n)
+        {
+            ans.push_back(temp);
+            return;
+        }
+
+        temp.push_back(nums[i]);
+        backtrack(i+1,nums,n,temp);
+        temp.pop_back();
+
+        backtrack(i+1,nums,n,temp);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> temp;
+        backtrack(0,nums,n,temp);
+        return ans;
+    }
+};
