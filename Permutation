@@ -1,0 +1,27 @@
+https://leetcode.com/problems/permutations/
+
+
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void backtrack(int i,vector<int>& nums,int n)
+    {
+        if(i >= n)
+        {
+            ans.push_back(nums);
+            return;
+        }
+
+        for(int x=i;x<n;x++)
+        {
+            swap(nums[i],nums[x]);
+            backtrack(i+1,nums,n);
+            swap(nums[i],nums[x]);
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n = nums.size();
+        backtrack(0,nums,n);
+        return ans;
+    }
+};
