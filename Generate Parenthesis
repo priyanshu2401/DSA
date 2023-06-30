@@ -1,0 +1,84 @@
+https://leetcode.com/problems/generate-parentheses/
+
+
+BRUTE FORCE:
+
+class Solution {
+public:
+    vector<string> ans;
+    set<string> t;
+    void backtrack(int i,string& nums,int n)
+    {
+        if(i >= n)
+        {
+            t.insert(nums);
+            return;
+        }
+
+        for(int x=i;x<n;x++)
+        {
+            swap(nums[i],nums[x]);
+            backtrack(i+1,nums,n);
+            swap(nums[i],nums[x]);
+        }
+    }
+
+    bool valid(string s)
+    {
+        if(s[0]==')') return false;
+        stack<char> st;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='(') st.push('(');
+            else
+            {
+                if(st.empty()) return false;
+                else st.pop();
+            }
+        }
+        return true;
+    }
+
+    vector<string> generateParenthesis(int n) {
+        string s = "";
+        for(int i=0;i<n;i++) s+='(';
+        for(int i=0;i<n;i++) s+=')';
+        int sz = s.size();
+        backtrack(0,s,sz);
+
+        for(auto &x: t)
+        {
+            if(valid(x)) ans.push_back(x);
+        }
+        return ans;
+    }
+};
+
+
+
+
+
+
+
+AC: Keeping the track of number of open and closed brackets used.
+    
+
+class Solution {
+public:
+    vector<string> ans;
+    void backtrack(int n,int open,int closed,string s)
+    {
+        if(open == n && closed == n)
+        {
+            ans.push_back(s);
+            return;
+        }
+
+        if(open < n) backtrack(n,open+1,closed,s+'(');
+        if(closed < open) backtrack(n,open,closed+1,s+')');
+    }
+    vector<string> generateParenthesis(int n) {
+        backtrack(n,0,0,"");
+        return ans;
+    }
+};
