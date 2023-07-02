@@ -23,3 +23,6 @@ Dynamic Programming
 7.Unique Path
 8.Unique Path 2
 9.Minimum Path Sum
+10.Cherry Pickup 2
+11.Subset Sum Problem
+12.Partition Equal Subset Sum

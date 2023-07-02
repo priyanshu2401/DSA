@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/minimum-sum-partition3317/1
+
+
+class Solution{
+  public:
+    
+    int solve(int arr[],int i,int curr,int n,int sum,vector<vector<int>>& dp)
+    {
+        if(i==n) return abs(2*curr - sum);
+        if(dp[i][curr] != -1) return dp[i][curr];
+        
+        int pick = solve(arr,i+1,curr+arr[i],n,sum,dp);
+        int notpick = solve(arr,i+1,curr,n,sum,dp);
+        
+        return dp[i][curr] = min(pick,notpick);
+    }
+	int minDifference(int arr[], int n)  { 
+	    // Your code goes here
+	    int sum=0;
+	    for(int i=0;i<n;i++) sum += arr[i];
+	    vector<vector<int>> dp(n+1,vector<int>(sum+1,-1));
+	    return solve(arr,0,0,n,sum,dp);
+	} 
+};

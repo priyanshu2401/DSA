@@ -1,0 +1,28 @@
+https://practice.geeksforgeeks.org/problems/perfect-sum-problem5633/1
+
+
+class Solution{
+	public:
+	
+	int mod = 1e9+7;
+	int solve(int arr[],int i,int n,int sum,vector<vector<int>>& dp)
+	{
+	    if(i==n && sum==0) return 1;
+	    if(i>=n || sum<0) return 0;
+	    if(sum==0) return 1;
+	    
+	    if(dp[i][sum]!=-1) return dp[i][sum];
+	    
+	    int pick = solve(arr,i+1,n,sum-arr[i],dp);
+	    int notpick = solve(arr,i+1,n,sum,dp);
+	    
+	    return dp[i][sum] = (pick+notpick)%mod;
+	}
+	int perfectSum(int arr[], int n, int sum)
+	{
+	    sort(arr,arr+n);
+        vector<vector<int>> dp(n+1,vector<int>(sum+1,-1));
+        return solve(arr,0,n,sum,dp)%mod;
+	}
+	  
+};
