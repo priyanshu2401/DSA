@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1
+
+
+class Solution{   
+public:
+    bool solve(vector<int>& arr,int i,int n,int sum,vector<vector<int>>& dp)
+    {
+        if(i==n && sum==0) return true;
+        if(i>=n || sum<0) return false;
+        if(sum==0) return true;
+        if(dp[i][sum]!=-1) return dp[i][sum];
+        
+        bool pick = solve(arr,i+1,n,sum-arr[i],dp);
+        bool notpick = solve(arr,i+1,n,sum,dp);
+        
+        return dp[i][sum] = (pick | notpick);
+    }
+    bool isSubsetSum(vector<int>arr, int sum){
+        // code here 
+        int n = arr.size();
+        vector<vector<int>> dp(n+1,vector<int>(sum+1,-1));
+        return solve(arr,0,n,sum,dp);
+    }
+};
