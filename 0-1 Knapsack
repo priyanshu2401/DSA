@@ -1,0 +1,27 @@
+https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
+
+class Solution
+{
+    public:
+    int solve(int i,int n,int w,int wt[],int val[],vector<vector<int>>& dp)
+    {
+        if(i>=n || w<=0) return 0;
+        if(dp[i][w]!=-1) return dp[i][w];
+        
+        int pick=0,notpick=0;
+        if(wt[i] > w) notpick = solve(i+1,n,w,wt,val,dp);
+        else
+        {
+            pick = solve(i+1,n,w-wt[i],wt,val,dp)+val[i];
+            notpick = solve(i+1,n,w,wt,val,dp);
+        }
+        
+        return dp[i][w] = max(pick,notpick);
+    }
+    int knapSack(int w, int wt[], int val[], int n) 
+    { 
+       vector<vector<int>> dp(n+1,vector<int>(w+1,-1));
+       return solve(0,n,w,wt,val,dp);
+    }
+};
