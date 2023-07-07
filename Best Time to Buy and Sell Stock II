@@ -1,0 +1,31 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/
+
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int mini=prices[0], sum=0, max_diff=0, curr_diff=0;
+        for(int i=1;i<prices.size();i++)
+        {
+            if(prices[i] < mini) 
+            {
+                mini = prices[i];
+                sum += max_diff;
+                max_diff=0;
+            }
+            else
+            {
+                curr_diff = prices[i] - mini;
+                if(curr_diff >= max_diff) max_diff = curr_diff;
+                else
+                {
+                    sum += max_diff;
+                    max_diff = 0;
+                    mini = prices[i];
+                }
+            }
+        }
+        sum += max_diff;
+        return sum;
+    }
+};
