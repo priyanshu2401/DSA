@@ -1,0 +1,25 @@
+https://practice.geeksforgeeks.org/problems/subset-sums2234/1
+
+
+class Solution
+{
+public:
+    vector<int> ans;
+    void backtrack(int i,int sum,int n,vector<int>& arr)
+    {
+        if(i>=n)
+        {
+            ans.push_back(sum);
+            return;
+        }
+        
+        backtrack(i+1,sum+arr[i],n,arr);
+        backtrack(i+1,sum,n,arr);
+    }
+    vector<int> subsetSums(vector<int> arr, int n)
+    {
+        // Write Your Code here
+        backtrack(0,0,n,arr);
+        return ans;
+    }
+};
