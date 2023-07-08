@@ -26,3 +26,20 @@ Dynamic Programming
 10.Cherry Pickup 2
 11.Subset Sum Problem
 12.Partition Equal Subset Sum
+13.Minimum Sum Partition
+14.Count Subsets with sum K
+15.Count partitions with given given difference
+16.0/1 Knapsack
+17.Target sum
+18.Coin change 2
+19.Unbounded knapsack
+20.LCS
+21.Print LCS
+22.Longest Palindromic Subsequence
+23.Minimum insertions to make palindrome
+24.Minimum insertions/deletions to convert string
+25.Shortest Common Supersequence
+26.Distinct Subsequences
+27.Edit Distance
+28.Best time to but and sell stock
+29.Best time to buy and sell stock 2

@@ -1,0 +1,18 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/
+
+
+class Solution {
+public:
+    int solve(int i,int n,vector<int> &prices,bool buy,int count,vector<vector<vector<int>>>& dp)
+    {
+        if(i>=n || count==0) return 0;
+        if(dp[i][buy][count]!=-1) return dp[i][buy][count];
+        if(buy) return dp[i][buy][count] = max((-prices[i]+solve(i+1,n,prices,false,count,dp)),solve(i+1,n,prices,true,count,dp));
+        return dp[i][buy][count] = max((prices[i]+solve(i+1,n,prices,true,count-1,dp)),solve(i+1,n,prices,false,count,dp)); 
+    }
+    int maxProfit(int k,vector<int>& prices) {
+        int n = prices.size();
+        vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(3,vector<int>(k+1,-1)));
+        return solve(0,n,prices,true,k,dp);
+    }
+};
