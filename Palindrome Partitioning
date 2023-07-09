@@ -1,0 +1,44 @@
+https://leetcode.com/problems/palindrome-partitioning/description/
+
+
+class Solution {
+public:
+    vector<vector<string>> ans;
+    bool palindrome(string s)
+    {
+        int n = s.size();
+        bool flag = true;
+        for(int i=0;i<n/2;i++)
+        {
+            if(s[i]!=s[n-i-1])
+            {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+    void backtrack(string s,vector<string> &temp)
+    {
+        if(s.size()==0)
+        {
+            ans.push_back(temp);
+            return;
+        }
+        for(int x=1;x<=s.size();x++)
+        {
+            string a = s.substr(0,x);
+            if(palindrome(a)) 
+            {
+                temp.push_back(a);
+                backtrack(s.substr(x,s.size()-x),temp);
+                temp.pop_back();
+            }
+        }
+    }
+    vector<vector<string>> partition(string s) {
+        vector<string> temp;
+        backtrack(s,temp);
+        return ans;
+    }
+};
