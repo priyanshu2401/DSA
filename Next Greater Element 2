@@ -1,0 +1,39 @@
+https://leetcode.com/problems/next-greater-element-ii/description/
+
+
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        vector<int> nger,ans,temp;
+        stack<int> s;
+        for(int i=0;i<nums.size();i++) temp.push_back(nums[i]);
+        for(int i=0;i<nums.size();i++) temp.push_back(nums[i]);
+        for(int i=temp.size()-1;i>=0;i--)
+        {
+            if(i==temp.size()-1)
+            {
+                s.push(temp[i]);
+                nger.push_back(-1);
+            }
+            else
+            {
+                if(s.top()>temp[i]) 
+                {
+                    nger.push_back(s.top());
+                    s.push(temp[i]);
+                }
+                else
+                {
+                    while(!s.empty() && s.top()<=temp[i]) s.pop();
+                    if(s.empty()) nger.push_back(-1);
+                    else nger.push_back(s.top());
+                    s.push(temp[i]);
+                }
+            }
+        }
+        reverse(nger.begin(),nger.end());
+        for(int i=0;i<nums.size();i++) ans.push_back(nger[i]);
+        
+        return ans;
+    }
+};
