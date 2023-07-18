@@ -1,0 +1,73 @@
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
+
+
+BACKTRACKING:
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool solve(TreeNode* root, TreeNode* target,vector<TreeNode*>& temp)
+    {
+        if(root==NULL) return false;
+        temp.push_back(root);
+        if(root->val == target->val) return true;
+
+        bool l = solve(root->left,target,temp);
+        bool r = solve(root->right,target,temp);
+
+        if(l || r) return true;
+        temp.pop_back();
+        return false;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL) return root;
+        vector<TreeNode*> arr,brr;
+
+        solve(root,p,arr);
+        solve(root,q,brr);
+
+        int i=0, n=min(arr.size(),brr.size());
+        while(i<n)
+        {
+            if(arr[i]!=brr[i]) break;
+            i++;
+        }
+        return arr[i-1];
+    }
+};
+
+
+
+RECURSION:
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL || root==p || root==q) return root;
+        
+        TreeNode* l = lowestCommonAncestor(root->left,p,q);
+        TreeNode* r = lowestCommonAncestor(root->right,p,q);
+
+        if(l==NULL && r==NULL) return NULL;
+        else if(l!=NULL && r==NULL) return l;
+        else if(l==NULL && r!=NULL) return r;
+        else return root;
+    }
+};
